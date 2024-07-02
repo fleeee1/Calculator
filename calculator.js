@@ -1,4 +1,6 @@
-
+var firstNumber = num1
+var operator = op
+var secondNumber = num2
 
 
 
