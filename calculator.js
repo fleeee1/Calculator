@@ -23,3 +23,12 @@ let operator = null;
 let secondNumber = null;
 
 let result = operate(operator, firstNumber, secondNumber);
+
+document.querySelectorAll('button').forEach(el =>{
+    el.addEventListener('click', () =>{
+      digit_pressed(el.textContent);
+    });
+  });
+  function digit_pressed(digit) {
+    console.log("digit pressed: " + digit);
+  }
