@@ -1,0 +1,43 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(97, 97, 224);
+    margin: 0; /* Remove default margin */
+    height: 100vh; /* Full height */
+    justify-content: center; /* Center content vertically */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Create 4 equal columns */
+    gap: 10px; /* Space between grid items */
+    border: 5px solid red;
+    width: 500px;
+    padding: 20px;
+    background-color: #fff; /* Optional: background color */
+}
+
+#display {
+    grid-column: span 4; /* Span the display across all 4 columns */
+    height: 50px;
+    background-color: rgb(23, 189, 45);
+    text-align: right;
+    font-size: 50px;
+    margin-top: 25px;
+    padding: 10px; /* Padding inside the display */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+button {
+    height: 100px;
+    font-size: 24px; /* Font size for buttons */
+}
+
+button.clear {
+    grid-column: span 2; /* Span clear button across 2 columns */
+}
+
+button.equals {
+    grid-column: span 2; /* Span equals button across 2 columns */
+}
