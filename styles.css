@@ -2,36 +2,42 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: rgb(97, 97, 224);
+
     margin: 0; /* Remove default margin */
     height: 100vh; /* Full height */
     justify-content: center; /* Center content vertically */
+    background-image: radial-gradient(rgb(218, 213, 255), rgb(132, 132, 249), rgb(0, 8, 255));
 }
 
 .container {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Create 4 equal columns */
     gap: 10px; /* Space between grid items */
-    border: 5px solid red;
+    border: 2px solid rgb(255, 213, 0);
     width: 500px;
     padding: 20px;
-    background-color: #fff; /* Optional: background color */
+    background-color: #1b153f; /* Optional: background color */
+    border-radius: 25px;
 }
 
 #display {
     grid-column: span 4; /* Span the display across all 4 columns */
-    height: 50px;
+    height: 100px;
     background-color: rgb(23, 189, 45);
     text-align: right;
     font-size: 50px;
     margin-top: 25px;
     padding: 10px; /* Padding inside the display */
     box-sizing: border-box; /* Include padding in element's total width and height */
+    border-radius: 15px;
+    
 }
 
 button {
     height: 100px;
     font-size: 24px; /* Font size for buttons */
+    background-color:rgb(239, 241, 243);
+    border-radius: 15px;
 }
 
 button.clear {
