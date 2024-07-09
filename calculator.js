@@ -18,4 +18,8 @@ const operate = (operator, num1, num2) => {
     }
 };
 
+let firstNumber = 0;
+let operator = null;
+let secondNumber = null;
+
 let result = operate(operator, firstNumber, secondNumber);
