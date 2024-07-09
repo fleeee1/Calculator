@@ -24,11 +24,20 @@ let secondNumber = null;
 
 let result = operate(operator, firstNumber, secondNumber);
 
-document.querySelectorAll('button').forEach(el =>{
-    el.addEventListener('click', () =>{
-      digit_pressed(el.textContent);
+document.querySelectorAll('button').forEach(button =>{
+    button.addEventListener('click', () =>{
+      digit_pressed(button.textContent);
     });
   });
-  function digit_pressed(digit) {
-    console.log("digit pressed: " + digit);
-  }
+
+function digit_pressed(digit) {
+    let display = document.getElementById('display');
+
+    if (display.textContent === '0') {
+        display.textContent = digit;
+    } else {
+        display.textContent += digit;
+    }
+
+
+    }

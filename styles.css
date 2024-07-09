@@ -13,7 +13,7 @@ body {
     display: grid;
     grid-template-columns: repeat(4, 1fr); /* Create 4 equal columns */
     gap: 10px; /* Space between grid items */
-    border: 2px solid rgb(255, 213, 0);
+    border: px solid rgb(255, 213, 0);
     width: 500px;
     padding: 20px;
     background-color: #1b153f; /* Optional: background color */
@@ -36,7 +36,7 @@ body {
 button {
     height: 100px;
     font-size: 24px; /* Font size for buttons */
-    background-color:rgb(239, 241, 243);
+    background-color:rgb(235, 239, 243);
     border-radius: 15px;
 }
 
