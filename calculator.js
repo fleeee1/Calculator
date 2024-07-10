@@ -32,9 +32,23 @@ document.querySelectorAll('button').forEach(button =>{
         display.textContent = '0';
       }
 
-    //   if (button.textContent === '=') {
+
+
+
+
+    //   if (operate = num1 + num2) {
     //     display.textContent = result;
     //   }
+    //   if (operate = subtract) {
+    //     display.textContent = result;
+    //   }
+    //   if (operate = multiply) {
+    //     display.textContent = result;
+    //   }
+    //   if (operate = divide) {
+    //     display.textContent = result;
+    //   }
+
     });
   });
 
