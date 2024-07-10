@@ -27,6 +27,14 @@ let result = operate(operator, firstNumber, secondNumber);
 document.querySelectorAll('button').forEach(button =>{
     button.addEventListener('click', () =>{
       digit_pressed(button.textContent);
+
+      if (button.textContent === 'AC') {
+        display.textContent = '0';
+      }
+
+    //   if (button.textContent === '=') {
+    //     display.textContent = result;
+    //   }
     });
   });
 
