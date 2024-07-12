@@ -3,56 +3,106 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
-const operate = (operator, num1, num2) => {
-    switch(operator) {
-        case '+':
-            return add(num1, num2);
-        case '-':
-            return subtract(num1, num2);
-        case '*':
-            return multiply(num1, num2);
-        case '/':
-            return divide(num1, num2);
-        default: 
-            return null
-    }
-};
-
-let firstNumber = 0;
+// Initialize variables to hold calculator state
+let firstNumber = null;
 let operator = null;
 let secondNumber = null;
+let result = null;
 
-let result = operate(operator, firstNumber, secondNumber);
+// Function to update the display with a number
+function updateDisplay(number) {
+    let display = document.getElementById('display');
+    display.textContent = number;
+}
 
-document.querySelectorAll('button').forEach(button =>{
-    button.addEventListener('click', () =>{
-      digit_pressed(button.textContent);
+// Function to handle when an operator button (+, -, *, /) is pressed
+function operatorPressed(op) {
+    let display = document.getElementById('display');
+    let displayText = display.textContent;
 
-      if (button.textContent === 'AC') {
-        display.textContent = '0';
-      }
+    // Extract the numeric value from display text
+    let currentNumber = parseFloat(displayText);
+
+    if (firstNumber === null) {
+        // First number is being entered
+        firstNumber = currentNumber;
+        operator = op;
+    } else if (operator !== null && secondNumber === null) {
+        // Handling consecutive operators without entering a new number
+        operator = op;
+    } else if (operator !== null && secondNumber !== null) {
+        // Second number is being entered, perform calculation with previous operator
+        secondNumber = currentNumber;
+        calculateResult();
+        firstNumber = result; // Update firstNumber with result for chaining operations
+        operator = op; // Update operator for the next operation
+        secondNumber = null; // Reset secondNumber
+    }
+
+    // Update display to show the operator (if not equals) or clear for next number input
+    if (op !== '=') {
+        display.textContent = '0'; // Visual representation of the operator
+    } else {
+        display.textContent = result; // Show the calculated result
+    }
+}
 
 
+// Function to perform the calculation based on current operator
+function calculateResult() {
+    switch (operator) {
+        case '+':
+            result = add(firstNumber, secondNumber);
+            break;
+        case '-':
+            result = subtract(firstNumber, secondNumber);
+            break;
+        case '*':
+            result = multiply(firstNumber, secondNumber);
+            break;
+        case '/':
+            result = divide(firstNumber, secondNumber);
+            break;
+        default:
+            result = null;
+            break;
+    }
+    updateDisplay(result);
+}
 
+// Event listener to handle button clicks
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+        let buttonText = button.textContent;
 
-
-    //   if (operate = num1 + num2) {
-    //     display.textContent = result;
-    //   }
-    //   if (operate = subtract) {
-    //     display.textContent = result;
-    //   }
-    //   if (operate = multiply) {
-    //     display.textContent = result;
-    //   }
-    //   if (operate = divide) {
-    //     display.textContent = result;
-    //   }
-
+        if (!isNaN(parseInt(buttonText))) {
+            // Digit button pressed
+            digitPressed(buttonText);
+        } else if (buttonText === '+' || buttonText === '-' || buttonText === '*' || buttonText === '/') {
+            // Operator button pressed
+            operatorPressed(buttonText);
+        } else if (buttonText === 'AC') {
+            // Clear button pressed
+            firstNumber = null;
+            operator = null;
+            secondNumber = null;
+            result = null;
+            updateDisplay('0');
+        } else if (buttonText === '=') {
+            // Equals button pressed
+            if (firstNumber !== null && operator !== null) {
+                secondNumber = parseFloat(document.getElementById('display').textContent);
+                calculateResult();
+                firstNumber = result; // Update firstNumber with result for potential chaining
+                operator = null; // Reset operator after calculation
+                secondNumber = null; // Reset secondNumber after calculation
+            }
+        }
     });
-  });
+});
 
-function digit_pressed(digit) {
+// Function to handle when a digit button is pressed
+function digitPressed(digit) {
     let display = document.getElementById('display');
 
     if (display.textContent === '0') {
@@ -60,6 +110,4 @@ function digit_pressed(digit) {
     } else {
         display.textContent += digit;
     }
-
-
-    }
+}
