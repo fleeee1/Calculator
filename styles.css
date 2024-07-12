@@ -36,7 +36,7 @@ body {
 button {
     height: 100px;
     font-size: 24px; /* Font size for buttons */
-    background-color:rgb(235, 239, 243);
+    background-color:rgb(219, 227, 234);
     border-radius: 15px;
 }
 
@@ -47,3 +47,7 @@ button.clear {
 button.equals {
     grid-column: span 2; /* Span equals button across 2 columns */
 }
+
+
+
+
