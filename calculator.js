@@ -9,10 +9,16 @@ let operator = null;
 let secondNumber = null;
 let result = null;
 
-// Function to update the display with a number
+// Function to update the UPPER display with a number
+function updateUpperDisplay(expression) {
+    let upperDisplay = document.getElementById('display-above');
+    upperDisplay.textContent = expression;
+}
+
+// Function to update the LOWER display with a number
 function updateDisplay(number) {
-    let display = document.getElementById('display');
-    display.textContent = number;
+    let lowerDisplay = document.getElementById('display-below');
+    lowerDisplay.textContent = number;
 }
 
 // Function to handle when an operator button (+, -, *, /) is pressed
