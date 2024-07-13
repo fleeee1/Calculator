@@ -19,28 +19,33 @@ body {
     border-radius: 25px;
 }
 
-#display-above {
+#display {
     grid-column: span 4; /* Span the display across all 4 columns */
-    height: 100px;
+    height: 200px; /* Adjust height to accommodate both displays */
     background-color: rgb(23, 189, 45);
     text-align: right;
     font-size: 50px;
     margin-top: 25px;
     padding: 10px; /* Padding inside the display */
     box-sizing: border-box; /* Include padding in element's total width and height */
-    border-radius: 15px; 
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-#display-below {
-    grid-column: span 4; /* Span the display across all 4 columns */
-    height: 100px;
-    background-color: rgb(23, 189, 45);
-    text-align: right;
-    font-size: 50px;
-    margin-top: 25px;
-    padding: 10px; /* Padding inside the display */
-    box-sizing: border-box; /* Include padding in element's total width and height */
-    border-radius: 15px; 
+#display .upper, #display .lower {
+    width: 100%;
+}
+
+#display .upper {
+    font-size: 25px; /* Adjust font size for the arithmetic expression */
+    color: #888; /* Different color for distinction */
+}
+
+#display .lower {
+    font-size: 50px; /* Larger font size for the result */
+    color: #000; /* Default color for the result */
 }
 
 button {
