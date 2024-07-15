@@ -9,7 +9,6 @@ let operator = null;
 let secondNumber = null;
 let result = null;
 
-
 // Function to update the UPPER display with the arithmetic expression
 function updateUpperDisplay(expression) {
     let upperDisplay = document.getElementById('display-above');
@@ -21,10 +20,6 @@ function updateLowerDisplay(number) {
     let lowerDisplay = document.getElementById('display-below');
     lowerDisplay.textContent = number;
 }
-
-
-
-
 
 // Function to handle when an operator button (+, -, *, /) is pressed
 function operatorPressed(op) {
@@ -39,9 +34,13 @@ function operatorPressed(op) {
         firstNumber = currentNumber;
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
-        updateLowerDisplay('0'); // Reset lower display for next number input
+        updateLowerDisplay(null); // Clear lower display after operator is selected
     } else if (operator !== null && secondNumber === null) {
         // Handling consecutive operators without entering a new number
+        if (op !== '+' && op !== '-' && op !== '*' && op !== '/') {
+            // Ignore the second consecutive operator
+            return;
+        }
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
     } else if (operator !== null && secondNumber !== null) {
@@ -52,7 +51,7 @@ function operatorPressed(op) {
         operator = op; // Update operator for the next operation
         secondNumber = null; // Reset secondNumber
         updateUpperDisplay(firstNumber + " " + operator);
-        updateLowerDisplay('0'); // Reset lower display for next number input
+        updateLowerDisplay(null); // Clear lower display after calculation
     }
 
     // Clear the lower display for the next number input
@@ -60,7 +59,6 @@ function operatorPressed(op) {
         lowerDisplay.textContent = result; // Show the calculated result
     }
 }
-
 
 // Function to perform the calculation based on current operator
 function calculateResult() {
@@ -132,6 +130,7 @@ function digitPressed(digit) {
         // Do nothing here for now; keep upper display unchanged
     } else {
         updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
+        updateLowerDisplay(null);
     }
 }
 
