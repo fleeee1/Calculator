@@ -33,6 +33,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden; /* Keep numbers from running off the display area
 }
 
 #display .upper, #display .lower {
