@@ -81,7 +81,7 @@ function calculateResult() {
             result = null;
             break;
     }
-    updateUpperDisplay(firstNumber + " " + operator + " " + secondNumber + " ="); // Show the full expression
+    updateUpperDisplay(firstNumber + operator + secondNumber + " ="); // Show the full expression
     updateLowerDisplay(result);
 }
 
