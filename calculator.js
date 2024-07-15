@@ -16,7 +16,11 @@ function updateUpperDisplay(expression) {
     upperDisplay.textContent = expression;
 }
 
-
+// Function to update the LOWER display with a number
+function updateLowerDisplay(number) {
+    let lowerDisplay = document.getElementById('display-below');
+    lowerDisplay.textContent = number;
+}
 
 
 
@@ -49,9 +53,9 @@ function operatorPressed(op) {
         updateUpperDisplay(firstNumber + " " + operator);
     }
 
-    // Update display to show the operator (if not equals) or clear for next number input
+    // Clear the lower display for the next number input
     if (op !== '=') {
-        upperDisplay.textContent = '0'; // Visual representation of the operator
+        lowerDisplay.textContent = '0';
     } else {
         lowerDisplay.textContent = result; // Show the calculated result
     }
@@ -77,7 +81,7 @@ function calculateResult() {
             result = null;
             break;
     }
-    updateUpperDisplay(''); // Clear the upper display after calculation
+    updateUpperDisplay(firstNumber + " " + operator + " " + secondNumber + " ="); // Show the full expression
     updateLowerDisplay(result);
 }
 
@@ -98,7 +102,7 @@ document.querySelectorAll('button').forEach(button => {
             operator = null;
             secondNumber = null;
             result = null;
-            updateUpperDisplay('0');
+            updateUpperDisplay(null);
             updateLowerDisplay('0');
         } else if (buttonText === '=') {
             // Equals button pressed
