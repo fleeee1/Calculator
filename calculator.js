@@ -39,6 +39,7 @@ function operatorPressed(op) {
         firstNumber = currentNumber;
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
+        updateLowerDisplay('0'); // Reset lower display for next number input
     } else if (operator !== null && secondNumber === null) {
         // Handling consecutive operators without entering a new number
         operator = op;
@@ -51,12 +52,11 @@ function operatorPressed(op) {
         operator = op; // Update operator for the next operation
         secondNumber = null; // Reset secondNumber
         updateUpperDisplay(firstNumber + " " + operator);
+        updateLowerDisplay('0'); // Reset lower display for next number input
     }
 
     // Clear the lower display for the next number input
-    if (op !== '=') {
-        lowerDisplay.textContent = '0';
-    } else {
+    if (op === '=') {
         lowerDisplay.textContent = result; // Show the calculated result
     }
 }
@@ -129,9 +129,9 @@ function digitPressed(digit) {
 
     // Update the upper display with the current arithmetic expression
     if (operator === null) {
-        updateUpperDisplay(display.textContent);
+        // Do nothing here for now; keep upper display unchanged
     } else {
-        updateUpperDisplay(firstNumber + " " + operator + " " + display.textContent);
+        updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
     }
 }
 
