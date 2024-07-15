@@ -79,7 +79,7 @@ function calculateResult() {
             result = null;
             break;
     }
-    updateUpperDisplay(firstNumber + operator + secondNumber + " ="); // Show the full expression
+    updateUpperDisplay(firstNumber + operator + secondNumber); // Show the full expression
     updateLowerDisplay(result);
 }
 
@@ -130,7 +130,7 @@ function digitPressed(digit) {
         // Do nothing here for now; keep upper display unchanged
     } else {
         updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
-        updateLowerDisplay(null);
+        updateLowerDisplay(null); // Clear lower display after operator is pressed
     }
 }
 
