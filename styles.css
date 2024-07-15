@@ -40,7 +40,7 @@ body {
 
 #display .upper {
     font-size: 25px; /* Adjust font size for the arithmetic expression */
-    color: #888; /* Different color for distinction */
+    color: #585555; /* Different color for distinction */
 }
 
 #display .lower {
