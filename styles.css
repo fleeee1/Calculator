@@ -21,11 +21,12 @@ body {
 
 #display {
     grid-column: span 4; /* Span the display across all 4 columns */
-    height: 200px; /* Adjust height to accommodate both displays */
+    height: 125px; /* Adjust height to accommodate both displays */
     background-color: rgb(23, 189, 45);
     text-align: right;
     font-size: 50px;
     margin-top: 25px;
+    margin-bottom: 25px;
     padding: 10px; /* Padding inside the display */
     box-sizing: border-box; /* Include padding in element's total width and height */
     border-radius: 15px;
