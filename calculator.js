@@ -9,27 +9,36 @@ let operator = null;
 let secondNumber = null;
 let result = null;
 
-// Function to update the display with a number
-function updateDisplay(number) {
-    let display = document.getElementById('display');
-    display.textContent = number;
+
+// Function to update the UPPER display with the arithmetic expression
+function updateUpperDisplay(expression) {
+    let upperDisplay = document.getElementById('display-above');
+    upperDisplay.textContent = expression;
 }
+
+
+
+
+
+
 
 // Function to handle when an operator button (+, -, *, /) is pressed
 function operatorPressed(op) {
-    let display = document.getElementById('display');
-    let displayText = display.textContent;
+    let lowerDisplay = document.getElementById('display-below');
+    let lowerDisplayText = lowerDisplay.textContent;
 
     // Extract the numeric value from display text
-    let currentNumber = parseFloat(displayText);
+    let currentNumber = parseFloat(lowerDisplayText);
 
     if (firstNumber === null) {
         // First number is being entered
         firstNumber = currentNumber;
         operator = op;
+        updateUpperDisplay(firstNumber + " " + operator);
     } else if (operator !== null && secondNumber === null) {
         // Handling consecutive operators without entering a new number
         operator = op;
+        updateUpperDisplay(firstNumber + " " + operator);
     } else if (operator !== null && secondNumber !== null) {
         // Second number is being entered, perform calculation with previous operator
         secondNumber = currentNumber;
@@ -37,13 +46,14 @@ function operatorPressed(op) {
         firstNumber = result; // Update firstNumber with result for chaining operations
         operator = op; // Update operator for the next operation
         secondNumber = null; // Reset secondNumber
+        updateUpperDisplay(firstNumber + " " + operator);
     }
 
     // Update display to show the operator (if not equals) or clear for next number input
     if (op !== '=') {
-        display.textContent = '0'; // Visual representation of the operator
+        upperDisplay.textContent = '0'; // Visual representation of the operator
     } else {
-        display.textContent = result; // Show the calculated result
+        lowerDisplay.textContent = result; // Show the calculated result
     }
 }
 
@@ -67,7 +77,8 @@ function calculateResult() {
             result = null;
             break;
     }
-    updateDisplay(result);
+    updateUpperDisplay(''); // Clear the upper display after calculation
+    updateLowerDisplay(result);
 }
 
 // Event listener to handle button clicks
@@ -87,7 +98,8 @@ document.querySelectorAll('button').forEach(button => {
             operator = null;
             secondNumber = null;
             result = null;
-            updateDisplay('0');
+            updateUpperDisplay('0');
+            updateLowerDisplay('0');
         } else if (buttonText === '=') {
             // Equals button pressed
             if (firstNumber !== null && operator !== null) {
@@ -103,11 +115,19 @@ document.querySelectorAll('button').forEach(button => {
 
 // Function to handle when a digit button is pressed
 function digitPressed(digit) {
-    let display = document.getElementById('display');
+    let lowerDisplay = document.getElementById('display-below');
 
-    if (display.textContent === '0') {
-        display.textContent = digit;
+    if (lowerDisplay.textContent === '0') {
+        lowerDisplay.textContent = digit;
     } else {
-        display.textContent += digit;
+        lowerDisplay.textContent += digit;
+    }
+
+    // Update the upper display with the current arithmetic expression
+    if (operator === null) {
+        updateUpperDisplay(display.textContent);
+    } else {
+        updateUpperDisplay(firstNumber + " " + operator + " " + display.textContent);
     }
 }
+
