@@ -79,7 +79,7 @@ function calculateResult() {
             result = null;
             break;
     }
-    updateUpperDisplay(firstNumber + operator + secondNumber); // Show the full expression
+    updateUpperDisplay(firstNumber + operator + secondNumber); // Show all but the equals sign above
     updateLowerDisplay(result);
 }
 
