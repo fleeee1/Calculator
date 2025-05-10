@@ -21,8 +21,10 @@ function updateLowerDisplay(number) {
     lowerDisplay.textContent = number;
 }
 
+
 // Function to handle when an operator button (+, -, *, /) is pressed
 function operatorPressed(op) {
+    console.log("what is the " + op + " here?");
     let lowerDisplay = document.getElementById('display-below');
     let lowerDisplayText = lowerDisplay.textContent;
 
@@ -34,7 +36,9 @@ function operatorPressed(op) {
         firstNumber = currentNumber;
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
+        console.log("This only shows in the upper display after the op is pressed");
         updateLowerDisplay(null); // Clear lower display after operator is selected
+
     } else if (operator !== null && secondNumber === null) {
         // Handling consecutive operators without entering a new number
         if (op !== '+' && op !== '-' && op !== '*' && op !== '/') {
@@ -48,6 +52,7 @@ function operatorPressed(op) {
         secondNumber = currentNumber;
         calculateResult();
         firstNumber = result; // Update firstNumber with result for chaining operations
+
         operator = op; // Update operator for the next operation
         secondNumber = null; // Reset secondNumber
         updateUpperDisplay(firstNumber + " " + operator);
@@ -80,7 +85,9 @@ function calculateResult() {
             break;
     }
     updateUpperDisplay(firstNumber + operator + secondNumber); // Show all but the equals sign above
+    console.log("This only shows up after = is pressed");
     updateLowerDisplay(result);
+    console.log("This ALSO only shows up after = is pressed");
 }
 
 // Event listener to handle button clicks
@@ -107,6 +114,7 @@ document.querySelectorAll('button').forEach(button => {
             if (firstNumber !== null && operator !== null) {
                 secondNumber = parseFloat(document.getElementById('display').textContent);
                 calculateResult();
+                console.log("anything?");
                 firstNumber = result; // Update firstNumber with result for potential chaining
                 operator = null; // Reset operator after calculation
                 secondNumber = null; // Reset secondNumber after calculation
