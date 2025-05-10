@@ -14,8 +14,6 @@ let expression = "";
 function updateUpperDisplay(expression) {
     let upperDisplay = document.getElementById('display-above');
     upperDisplay.textContent = expression;
-    console.log(expression);
-    //this is the last time the expression is actually correct
 }
 
 // Function to update the LOWER display with a number
@@ -38,10 +36,8 @@ function operatorPressed(op) {
         firstNumber = currentNumber;
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
-        console.log("Line 41 - After setting firstNumber and operator: firstNumber = ", firstNumber, " operator = ", operator);
         updateLowerDisplay(null); // Clear lower display after operator is selected
 
-        console.log("Before else if: operator = ", operator, " secondNumber = ", secondNumber);
     } else if (operator !== null && secondNumber === null) {
         // Handling consecutive operators without entering a new number
         if (op !== '+' && op !== '-' && op !== '*' && op !== '/') {
@@ -51,27 +47,19 @@ function operatorPressed(op) {
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
 
-        console.log("Before entering secondNumber !== null check, secondNumber:", secondNumber);
     } else if (operator !== null && secondNumber !== null) { //this conditional is NOT running
-        console.log("Line 56 - Before setting secondNumber. currentNumber:", currentNumber, "secondNumber:", secondNumber);
-
         // Second number is being entered, perform calculation with previous operator
         secondNumber = currentNumber;
         calculateResult();
         firstNumber = result; // Update firstNumber with result for chaining operations
-
         operator = op; // Update operator for the next operation
-        console.log("Line 64 - Before setting secondNumber. currentNumber:", currentNumber, "secondNumber:", secondNumber);
-
         secondNumber = null; // Reset secondNumber
         updateUpperDisplay(firstNumber + " " + operator);
-        console.log("Line 68 - About to clear lower display. Current display:", document.getElementById('display').textContent);
         updateLowerDisplay(null); // Clear lower display after calculation
     }
     // Clear the lower display for the next number input
     if (op === '=') {
         lowerDisplay.textContent = result; // Show the calculated result
-
     }
 }
 
@@ -96,11 +84,7 @@ function calculateResult() {
     }
     expression = (firstNumber + " " + operator + " " + secondNumber);
     updateUpperDisplay(expression); // Show all but the equals sign above
-    console.log("Line 92 - About to clear lower display. Current display:", document.getElementById('display').textContent);
     updateLowerDisplay(result);
-    console.log("After updating lower display, result is:", result);
-console.log("Lower display now shows:", document.getElementById('display-below').textContent);
-
 }
 
 // Event listener to handle button clicks
@@ -121,26 +105,13 @@ document.querySelectorAll('button').forEach(button => {
             secondNumber = null;
             result = null;
             updateUpperDisplay(null);
-            console.log("About to clear lower display. Current display:", document.getElementById('display').textContent);
             updateLowerDisplay('0');
         } else if (buttonText === '=') {
             // Equals button pressed
             if (firstNumber !== null && operator !== null) {
-                console.log("129 Before assigning to secondNumber, display shows:", document.getElementById('display').textContent);
-                secondNumber = parseFloat(document.getElementById('display').textContent);
-
-                        // Log the state before the calculation
-
-                        console.log("134 After setting secondNumber: secondNumber = ", secondNumber);
+                        // Only set secondNumber if it hasn't been set yet
+                secondNumber = parseFloat(document.getElementById('display-below').textContent); // Set second number
                 calculateResult();
-                console.log("136 - After calculation: result:", result, "firstNumber:", firstNumber, "operator:", operator, "secondNumber:", secondNumber);
-
-                console.log("After calculation:");
-                console.log("result:", result);  // What is the result of the calculation?
-                console.log("firstNumber (after result assignment):", firstNumber);  // Has this been updated correctly?
-                console.log("operator (should be null after calculation):", operator);
-                console.log("secondNumber (should be null after calculation):", secondNumber);
-
                 firstNumber = result; // Update firstNumber with result for potential chaining
                 operator = null; // Reset operator after calculation
                 secondNumber = null; // Reset secondNumber after calculation
@@ -151,7 +122,6 @@ document.querySelectorAll('button').forEach(button => {
 
 // Function to handle when a digit button is pressed
 function digitPressed(digit) {
-    console.log("Digit button pressed, updating display with:", digit);
     let lowerDisplay = document.getElementById('display-below');
 
     if (lowerDisplay.textContent === '0') {
@@ -165,7 +135,6 @@ function digitPressed(digit) {
         // Do nothing here for now; keep upper display unchanged
     } else {
         updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
-        console.log("About to clear lower display. Current display:", document.getElementById('display').textContent);
         // updateLowerDisplay(null); // Clear lower display after operator is pressed
     }
 }
