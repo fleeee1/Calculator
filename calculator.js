@@ -8,12 +8,14 @@ let firstNumber = null;
 let operator = null;
 let secondNumber = null;
 let result = null;
+let expression = "";
 
 // Function to update the UPPER display with the arithmetic expression
 function updateUpperDisplay(expression) {
     let upperDisplay = document.getElementById('display-above');
     upperDisplay.textContent = expression;
-    console.log("Expression is now: " + expression);
+    console.log(expression);
+    //this is the last time the expression is actually correct
 }
 
 // Function to update the LOWER display with a number
@@ -25,7 +27,6 @@ function updateLowerDisplay(number) {
 
 // Function to handle when an operator button (+, -, *, /) is pressed
 function operatorPressed(op) {
-    console.log("operatorPressed called with: " + op);
     let lowerDisplay = document.getElementById('display-below');
     let lowerDisplayText = lowerDisplay.textContent;
 
@@ -37,47 +38,48 @@ function operatorPressed(op) {
         firstNumber = currentNumber;
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
-        console.log(secondNumber + " 2");
-
+        console.log("Line 41 - After setting firstNumber and operator: firstNumber = ", firstNumber, " operator = ", operator);
         updateLowerDisplay(null); // Clear lower display after operator is selected
 
     } else if (operator !== null && secondNumber === null) {
-        console.log(secondNumber + " 3");
         // Handling consecutive operators without entering a new number
         if (op !== '+' && op !== '-' && op !== '*' && op !== '/') {
-            console.log(secondNumber + " 4");
             // Ignore the second consecutive operator
             return;
         }
         operator = op;
-        console.log("anything");
         updateUpperDisplay(firstNumber + " " + operator);
-    } else if (operator !== null && secondNumber !== null) {
+
+        console.log("Line 53 - Checking for calc block: operator =", operator, "secondNumber =", secondNumber);
+
+    } else if (operator !== null && secondNumber !== null) { //this conditional is NOT running
+        console.log("Line 56 - Before setting secondNumber. currentNumber:", currentNumber, "secondNumber:", secondNumber);
+
         // Second number is being entered, perform calculation with previous operator
         secondNumber = currentNumber;
         calculateResult();
         firstNumber = result; // Update firstNumber with result for chaining operations
 
         operator = op; // Update operator for the next operation
+        console.log("Line 64 - Before setting secondNumber. currentNumber:", currentNumber, "secondNumber:", secondNumber);
+
         secondNumber = null; // Reset secondNumber
         updateUpperDisplay(firstNumber + " " + operator);
+        console.log("Line 68 - About to clear lower display. Current display:", document.getElementById('display').textContent);
         updateLowerDisplay(null); // Clear lower display after calculation
     }
-    console.log(secondNumber + " 1sdfsdf");
     // Clear the lower display for the next number input
     if (op === '=') {
         lowerDisplay.textContent = result; // Show the calculated result
 
     }
 }
-console.log(secondNumber + " 1");
 
 // Function to perform the calculation based on current operator
 function calculateResult() {
     switch (operator) {
         case '+':
             result = add(firstNumber, secondNumber);
-            console.log(secondNumber + " 1");
             break;
         case '-':
             result = subtract(firstNumber, secondNumber);
@@ -87,16 +89,14 @@ function calculateResult() {
             break;
         case '/':
             result = divide(firstNumber, secondNumber);
-            console.log(secondNumber + " sdfsd1");
             break;
         default:
             result = null;
-            console.log(secondNumber + " change?");
             break;
     }
-    console.log(secondNumber + " try again");
-    updateUpperDisplay(firstNumber + operator + secondNumber); // Show all but the equals sign above
-    console.log(secondNumber + " try agian 2");
+    expression = (firstNumber + " " + operator + " " + secondNumber);
+    updateUpperDisplay(expression); // Show all but the equals sign above
+    console.log("Line 92 - About to clear lower display. Current display:", document.getElementById('display').textContent);
     updateLowerDisplay(result);
 
 }
@@ -119,13 +119,29 @@ document.querySelectorAll('button').forEach(button => {
             secondNumber = null;
             result = null;
             updateUpperDisplay(null);
+            console.log("About to clear lower display. Current display:", document.getElementById('display').textContent);
             updateLowerDisplay('0');
         } else if (buttonText === '=') {
             // Equals button pressed
             if (firstNumber !== null && operator !== null) {
+                console.log("LINE 126 - What display shows right before parsing:", document.getElementById('display').textContent);
+                console.log("LINE 127" + secondNumber);
                 secondNumber = parseFloat(document.getElementById('display').textContent);
-                console.log("the second number is " + secondNumber + " after pressing =");
+
+                        // Log the state before the calculation
+        console.log("Line 130 Before calculation:");
+        console.log("firstNumber:", firstNumber);
+        console.log("operator:", operator);
+        console.log("secondNumber:", secondNumber);
+
                 calculateResult();
+
+                console.log("After calculation:");
+                console.log("result:", result);  // What is the result of the calculation?
+                console.log("firstNumber (after result assignment):", firstNumber);  // Has this been updated correctly?
+                console.log("operator (should be null after calculation):", operator);
+                console.log("secondNumber (should be null after calculation):", secondNumber);
+
                 firstNumber = result; // Update firstNumber with result for potential chaining
                 operator = null; // Reset operator after calculation
                 secondNumber = null; // Reset secondNumber after calculation
@@ -148,8 +164,8 @@ function digitPressed(digit) {
     if (operator === null) {
         // Do nothing here for now; keep upper display unchanged
     } else {
-        console.log(secondNumber + "thing");
         updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
+        console.log("About to clear lower display. Current display:", document.getElementById('display').textContent);
         updateLowerDisplay(null); // Clear lower display after operator is pressed
     }
 }
