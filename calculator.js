@@ -126,17 +126,14 @@ document.querySelectorAll('button').forEach(button => {
         } else if (buttonText === '=') {
             // Equals button pressed
             if (firstNumber !== null && operator !== null) {
-                console.log("LINE 126 - What display shows right before parsing:", document.getElementById('display').textContent);
-                console.log("LINE 127" + secondNumber);
+                console.log("129 Before assigning to secondNumber, display shows:", document.getElementById('display').textContent);
                 secondNumber = parseFloat(document.getElementById('display').textContent);
 
                         // Log the state before the calculation
-        console.log("Line 130 Before calculation:");
-        console.log("firstNumber:", firstNumber);
-        console.log("operator:", operator);
-        console.log("secondNumber:", secondNumber);
 
+                        console.log("134 After setting secondNumber: secondNumber = ", secondNumber);
                 calculateResult();
+                console.log("136 - After calculation: result:", result, "firstNumber:", firstNumber, "operator:", operator, "secondNumber:", secondNumber);
 
                 console.log("After calculation:");
                 console.log("result:", result);  // What is the result of the calculation?
