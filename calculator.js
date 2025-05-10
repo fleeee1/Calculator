@@ -41,6 +41,7 @@ function operatorPressed(op) {
         console.log("Line 41 - After setting firstNumber and operator: firstNumber = ", firstNumber, " operator = ", operator);
         updateLowerDisplay(null); // Clear lower display after operator is selected
 
+        console.log("Before else if: operator = ", operator, " secondNumber = ", secondNumber);
     } else if (operator !== null && secondNumber === null) {
         // Handling consecutive operators without entering a new number
         if (op !== '+' && op !== '-' && op !== '*' && op !== '/') {
@@ -50,8 +51,7 @@ function operatorPressed(op) {
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
 
-        console.log("Line 53 - Checking for calc block: operator =", operator, "secondNumber =", secondNumber);
-
+        console.log("Before entering secondNumber !== null check, secondNumber:", secondNumber);
     } else if (operator !== null && secondNumber !== null) { //this conditional is NOT running
         console.log("Line 56 - Before setting secondNumber. currentNumber:", currentNumber, "secondNumber:", secondNumber);
 
@@ -98,6 +98,8 @@ function calculateResult() {
     updateUpperDisplay(expression); // Show all but the equals sign above
     console.log("Line 92 - About to clear lower display. Current display:", document.getElementById('display').textContent);
     updateLowerDisplay(result);
+    console.log("After updating lower display, result is:", result);
+console.log("Lower display now shows:", document.getElementById('display-below').textContent);
 
 }
 
@@ -152,6 +154,7 @@ document.querySelectorAll('button').forEach(button => {
 
 // Function to handle when a digit button is pressed
 function digitPressed(digit) {
+    console.log("Digit button pressed, updating display with:", digit);
     let lowerDisplay = document.getElementById('display-below');
 
     if (lowerDisplay.textContent === '0') {
@@ -166,7 +169,7 @@ function digitPressed(digit) {
     } else {
         updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
         console.log("About to clear lower display. Current display:", document.getElementById('display').textContent);
-        updateLowerDisplay(null); // Clear lower display after operator is pressed
+        // updateLowerDisplay(null); // Clear lower display after operator is pressed
     }
 }
 
