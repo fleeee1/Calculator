@@ -13,6 +13,7 @@ let result = null;
 function updateUpperDisplay(expression) {
     let upperDisplay = document.getElementById('display-above');
     upperDisplay.textContent = expression;
+    console.log("Expression is now: " + expression);
 }
 
 // Function to update the LOWER display with a number
@@ -24,7 +25,7 @@ function updateLowerDisplay(number) {
 
 // Function to handle when an operator button (+, -, *, /) is pressed
 function operatorPressed(op) {
-    console.log("what is the " + op + " here?");
+    console.log("operatorPressed called with: " + op);
     let lowerDisplay = document.getElementById('display-below');
     let lowerDisplayText = lowerDisplay.textContent;
 
@@ -36,16 +37,20 @@ function operatorPressed(op) {
         firstNumber = currentNumber;
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
-        console.log("This only shows in the upper display after the op is pressed");
+        console.log(secondNumber + " 2");
+
         updateLowerDisplay(null); // Clear lower display after operator is selected
 
     } else if (operator !== null && secondNumber === null) {
+        console.log(secondNumber + " 3");
         // Handling consecutive operators without entering a new number
         if (op !== '+' && op !== '-' && op !== '*' && op !== '/') {
+            console.log(secondNumber + " 4");
             // Ignore the second consecutive operator
             return;
         }
         operator = op;
+        console.log("anything");
         updateUpperDisplay(firstNumber + " " + operator);
     } else if (operator !== null && secondNumber !== null) {
         // Second number is being entered, perform calculation with previous operator
@@ -58,18 +63,21 @@ function operatorPressed(op) {
         updateUpperDisplay(firstNumber + " " + operator);
         updateLowerDisplay(null); // Clear lower display after calculation
     }
-
+    console.log(secondNumber + " 1sdfsdf");
     // Clear the lower display for the next number input
     if (op === '=') {
         lowerDisplay.textContent = result; // Show the calculated result
+
     }
 }
+console.log(secondNumber + " 1");
 
 // Function to perform the calculation based on current operator
 function calculateResult() {
     switch (operator) {
         case '+':
             result = add(firstNumber, secondNumber);
+            console.log(secondNumber + " 1");
             break;
         case '-':
             result = subtract(firstNumber, secondNumber);
@@ -79,15 +87,18 @@ function calculateResult() {
             break;
         case '/':
             result = divide(firstNumber, secondNumber);
+            console.log(secondNumber + " sdfsd1");
             break;
         default:
             result = null;
+            console.log(secondNumber + " change?");
             break;
     }
+    console.log(secondNumber + " try again");
     updateUpperDisplay(firstNumber + operator + secondNumber); // Show all but the equals sign above
-    console.log("This only shows up after = is pressed");
+    console.log(secondNumber + " try agian 2");
     updateLowerDisplay(result);
-    console.log("This ALSO only shows up after = is pressed");
+
 }
 
 // Event listener to handle button clicks
@@ -113,8 +124,8 @@ document.querySelectorAll('button').forEach(button => {
             // Equals button pressed
             if (firstNumber !== null && operator !== null) {
                 secondNumber = parseFloat(document.getElementById('display').textContent);
+                console.log("the second number is " + secondNumber + " after pressing =");
                 calculateResult();
-                console.log("anything?");
                 firstNumber = result; // Update firstNumber with result for potential chaining
                 operator = null; // Reset operator after calculation
                 secondNumber = null; // Reset secondNumber after calculation
@@ -137,6 +148,7 @@ function digitPressed(digit) {
     if (operator === null) {
         // Do nothing here for now; keep upper display unchanged
     } else {
+        console.log(secondNumber + "thing");
         updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
         updateLowerDisplay(null); // Clear lower display after operator is pressed
     }
