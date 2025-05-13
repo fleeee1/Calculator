@@ -25,6 +25,7 @@ function updateLowerDisplay(number) {
 
 // Function to handle when an operator button (+, -, *, /) is pressed
 function operatorPressed(op) {
+    console.log("firstNumber at start of operatorPressed:", firstNumber);
     let lowerDisplay = document.getElementById('display-below');
     let lowerDisplayText = lowerDisplay.textContent;
 
@@ -37,19 +38,23 @@ function operatorPressed(op) {
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
         updateLowerDisplay(null); // Clear lower display after operator is selected
-
-    } else if (operator !== null && secondNumber === null) {
+    } 
+    
+    else if (operator !== null && secondNumber === null) {
         // Handling consecutive operators without entering a new number
+        console.log("2nd branch running");
         if (op !== '+' && op !== '-' && op !== '*' && op !== '/') {
+            console.log("yo");
             // Ignore the second consecutive operator
             return;
         }
+ 
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
 
     } else if (operator !== null && secondNumber !== null) { //this conditional is NOT running
         // Second number is being entered, perform calculation with previous operator
-        secondNumber = currentNumber;
+        console.log("anything here????");
         calculateResult();
         firstNumber = result; // Update firstNumber with result for chaining operations
         operator = op; // Update operator for the next operation
@@ -90,6 +95,7 @@ function calculateResult() {
 // Event listener to handle button clicks
 document.querySelectorAll('button').forEach(button => {
     button.addEventListener('click', () => {
+       
         let buttonText = button.textContent;
 
         if (!isNaN(parseInt(buttonText))) {
@@ -108,13 +114,14 @@ document.querySelectorAll('button').forEach(button => {
             updateLowerDisplay('0');
         } else if (buttonText === '=') {
             // Equals button pressed
+            secondNumber = parseFloat(document.getElementById('display-below').textContent);
             if (firstNumber !== null && operator !== null) {
                         // Only set secondNumber if it hasn't been set yet
                 secondNumber = parseFloat(document.getElementById('display-below').textContent); // Set second number
                 calculateResult();
                 firstNumber = result; // Update firstNumber with result for potential chaining
                 operator = null; // Reset operator after calculation
-                secondNumber = null; // Reset secondNumber after calculation
+                // secondNumber = null; // Reset secondNumber after calculation ***i think this is causing the bug around line 50***
             }
         }
     });
