@@ -145,11 +145,9 @@ function digitPressed(digit) {
     }
 
     // Update the upper display with the current arithmetic expression
-    if (operator === null) {
-        // Do nothing here for now; keep upper display unchanged
-    } else {
+    if (operator !== null) {
         updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
         updateLowerDisplay(null); // Clear lower display after operator is pressed
-    }
+    } 
 }
 
