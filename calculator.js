@@ -10,6 +10,7 @@ let secondNumber = null;
 let result = null;
 let expression = "";
 
+
 // Function to update the UPPER display with the arithmetic expression
 function updateUpperDisplay(expression) {
     let upperDisplay = document.getElementById('display-above');
@@ -25,7 +26,11 @@ function updateLowerDisplay(number) {
 
 // Function to handle when an operator button (+, -, *, /) is pressed
 function operatorPressed(op) {
-    console.log("firstNumber at start of operatorPressed:", firstNumber);
+    console.log("START operatorPressed");
+    console.log("firstNumber:", firstNumber);
+    console.log("operator:", operator);
+    console.log("secondNumber:", secondNumber);
+    console.log("op passed in:", op);
     let lowerDisplay = document.getElementById('display-below');
     let lowerDisplayText = lowerDisplay.textContent;
 
@@ -48,7 +53,7 @@ function operatorPressed(op) {
             // Ignore the second consecutive operator
             return;
         }
- 
+        
         operator = op;
         updateUpperDisplay(firstNumber + " " + operator);
 
@@ -56,8 +61,9 @@ function operatorPressed(op) {
         // Second number is being entered, perform calculation with previous operator
         console.log("anything here????");
         calculateResult();
-        firstNumber = result; // Update firstNumber with result for chaining operations
         operator = op; // Update operator for the next operation
+        firstNumber = result; // Update firstNumber with result for chaining operations
+
         secondNumber = null; // Reset secondNumber
         updateUpperDisplay(firstNumber + " " + operator);
         updateLowerDisplay(null); // Clear lower display after calculation
@@ -119,6 +125,7 @@ document.querySelectorAll('button').forEach(button => {
                         // Only set secondNumber if it hasn't been set yet
                 secondNumber = parseFloat(document.getElementById('display-below').textContent); // Set second number
                 calculateResult();
+                console.log("Setting firstNumber to result:", result);
                 firstNumber = result; // Update firstNumber with result for potential chaining
                 operator = null; // Reset operator after calculation
                 // secondNumber = null; // Reset secondNumber after calculation ***i think this is causing the bug around line 50***
@@ -142,7 +149,7 @@ function digitPressed(digit) {
         // Do nothing here for now; keep upper display unchanged
     } else {
         updateUpperDisplay(firstNumber + " " + operator + " " + lowerDisplay.textContent);
-        // updateLowerDisplay(null); // Clear lower display after operator is pressed
+        updateLowerDisplay(null); // Clear lower display after operator is pressed
     }
 }
 
