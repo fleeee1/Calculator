@@ -8,7 +8,8 @@ let firstNumber = null;
 let operator = null;
 let secondNumber = null;
 let result = null;
-let expression = "";
+let expression = null;
+let currentInput = null;
 
 
 // Function to update the UPPER display with the arithmetic expression
@@ -26,11 +27,7 @@ function updateLowerDisplay(number) {
 
 // Function to handle when an operator button (+, -, *, /) is pressed
 function operatorPressed(op) {
-    console.log("START operatorPressed");
-    console.log("firstNumber:", firstNumber);
-    console.log("operator:", operator);
     console.log("secondNumber:", secondNumber);
-    console.log("op passed in:", op);
     let lowerDisplay = document.getElementById('display-below');
     let lowerDisplayText = lowerDisplay.textContent;
 
@@ -47,9 +44,7 @@ function operatorPressed(op) {
     
     else if (operator !== null && secondNumber === null) {
         // Handling consecutive operators without entering a new number
-        console.log("2nd branch running");
         if (op !== '+' && op !== '-' && op !== '*' && op !== '/') {
-            console.log("yo");
             // Ignore the second consecutive operator
             return;
         }
@@ -121,11 +116,11 @@ document.querySelectorAll('button').forEach(button => {
         } else if (buttonText === '=') {
             // Equals button pressed
             secondNumber = parseFloat(document.getElementById('display-below').textContent);
+            console.log("second number is: " + secondNumber);
             if (firstNumber !== null && operator !== null) {
                         // Only set secondNumber if it hasn't been set yet
                 secondNumber = parseFloat(document.getElementById('display-below').textContent); // Set second number
                 calculateResult();
-                console.log("Setting firstNumber to result:", result);
                 firstNumber = result; // Update firstNumber with result for potential chaining
                 operator = null; // Reset operator after calculation
                 // secondNumber = null; // Reset secondNumber after calculation ***i think this is causing the bug around line 50***
@@ -137,7 +132,7 @@ document.querySelectorAll('button').forEach(button => {
 // Function to handle when a digit button is pressed
 function digitPressed(digit) {
     let lowerDisplay = document.getElementById('display-below');
-
+    console.log("secondNumber:", secondNumber);
     if (lowerDisplay.textContent === '0') {
         lowerDisplay.textContent = digit;
     } else {
